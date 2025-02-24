@@ -1,0 +1,34 @@
+{
+    
+  "Animes" : {
+    
+      "1" : {
+          
+          "Titulo" : "HUNTER X HUNTER",
+          "Genero" : "AVENTURA",
+          "Autor" : "Yoshihiro Togashi",
+          "Episodios" : 148,
+          "Manga" : "SIM"
+
+          
+          }
+      
+      },
+  
+  
+  
+  "Mangas" : {
+      
+      "1" : {
+          
+          "Titulo" : "HUNTER X HUNTER",
+          "Genero" : "AVENTURA",
+          "Autor" : "Yoshihiro Togashi",
+          "Capitulos" : 410,
+          "Anime" : "SIM"
+          
+          }
+      
+      }
+  
+  }
