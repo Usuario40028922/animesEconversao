@@ -11,7 +11,7 @@ def limpar():
 
 def conferir_pasta():
   print(f"Diretório atual: {os.getcwd()}")
-  os.chdir(r"C:\Users\ferre\OneDrive\Área de Trabalho\Projetos\Python\dever2veiga")
+  os.chdir(r"C:\Users\ferre\OneDrive\Área de Trabalho\Projetos\Projetos_com_Git\dever2veiga")
   print(f"Diretório atual: {os.getcwd()}")
   sleep(2)
   limpar()
@@ -119,8 +119,93 @@ def procura(dados, manga=False):
             
              
 def inserir_anime(dados):
-   limpar()
-   print("Para inserir um anime, siga o seguinte padrão:\nNome, Gênero, Autor, Episódios, Possui mangá? (sim ou não)\n\nEx: ")
+  padrao = ['Titulo', 'Genero', 'Autor', 'Episodios', 'Manga', 'Titulo', 'Genero', 'Autor', 'Episodios', 'Anime']
+  
+  total_anime = list(dados['Animes'])
+
+  limpar()
+  print("Para inserir um anime, siga o seguinte padrão:\nNome,Gênero,Autor,Episódios,Possui mangá? (sim ou não)\n\nEx: \n\tHunter x Hunter,Aventura,Yoshihiro Togashi,148,Sim")
+  novo_anime = input("\n\t").split(",")
+
+  #Checking the data whether is equal to five detailments of the anime 
+  if len(novo_anime) == 5:
+    novo_anime[3] = int(novo_anime[3])
+  else:
+    limpar()
+    print("Informações fornecidas não são igual à 5.")
+    sleep(1)
+    limpar()
+    inserir_anime(dados)
+
+
+  #Making sure the user wants to insert these data into the anime.json file
+
+  limpar()
+  for datum in novo_anime:
+    print(datum)
+    
+  agreement = input("\nSão essas mesmo as informações que deseja inserir?\n1 - Sim\n2 - Não\n\t").lower()
+
+  if agreement in ['sim', '1', 'primeiro']:
+    limpar()
+    print("blz")
+
+    #if there's another version of media
+
+    if novo_anime[4] in ['sim', 'Sim']:
+      limpar()
+      print("Como existe a versão de mangá, por favor, insira as informações conforme o padrao.\nTítulo,gênero,autor,quantos capítulos.")
+      print("Ex\n\tHunter x Hunter,aventura,Yoshiro Togashi,410.")
+      novo_manga = input("\n:\t").split(",")
+
+      novo_manga[3] = int(novo_manga[3])
+
+      limpar()
+      for informacao in novo_manga:
+        print(informacao)
+      crtz = input("\nÉ isso aí memo?\n1 - Sim\n2 - Não\t: ").lower()
+
+      if crtz in ['é', 'sim', 'e', 'aham', '1']:
+        print("blz")
+        novo_manga.append('Sim')
+        limpar()
+
+      else:
+        print("Ah vai cagar vai")
+        sleep(0.4)
+        limpar()
+        inserir_anime(dados)
+        
+    if novo_manga:
+      #len(novo_anime) = 5
+      #len(novo_manga) = 5
+
+      novo_anime = novo_anime + novo_manga
+
+      #len(novo_anime) = 10
+    anime = {}
+
+    for slaVei in range(len(novo_anime) - 1):
+      print(slaVei)
+
+      if slaVei >= 5:
+        anime[f'{padrao[slaVei]}'] = novo_anime[slaVei]
+
+      anime[f'{padrao[slaVei]}'] = novo_anime[slaVei]
+
+      
+
+    print(anime)
+  
+
+  else:
+    print("vai la ent dnv")
+    sleep(0.5)
+    limpar()
+    inserir_anime(dados)
+
+
+
 
 def escolha(primeira_vez=True):
   dados = ler()
@@ -142,7 +227,7 @@ def escolha(primeira_vez=True):
     procura(dados)
 
   elif escolha in ['2', 'segundo', 'inserir', 'inserir novo', 'inserir novo anime', 'de graça']:
-    inserir_anime()
+    inserir_anime(dados)
 
 
 #Início do código abaixo:
