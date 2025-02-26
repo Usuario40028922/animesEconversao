@@ -2,6 +2,8 @@ import json
 import os
 from time import sleep
 
+primeira_vez = True
+
 def limpar():
   sistema = os.name  # Detecta o sistema operacional
   if sistema == 'posix':  # Para sistemas Unix (Linux, macOS)
@@ -11,7 +13,7 @@ def limpar():
 
 def conferir_pasta():
   print(f"Diretório atual: {os.getcwd()}")
-  os.chdir(r"C:\Users\ferre\OneDrive\Área de Trabalho\Projetos\Projetos_com_Git\dever2veiga")
+  os.chdir(r"C:\Users\Aluno\Desktop\pastadoian\deverVeiga")
   print(f"Diretório atual: {os.getcwd()}")
   sleep(2)
   limpar()
@@ -83,8 +85,12 @@ def procura(dados, manga=False):
     elif modo_leitura in ['2', 'buscar', 'buscar por nome', 'segundo']:
       limpar()
       nome = input("Insira o nome do anime: ").upper()
+      
+      escolhas = ["Voltar ao menu principal"]
+      
       for anime in dados["Animes"]:
-          if dados["Animes"][anime]["Titulo"] == nome:
+        print(nome, dados["Animes"][anime]["Titulo"])
+        if dados["Animes"][anime]["Titulo"] == nome:
             limpar()
             print("Anime encontrado!")
             sleep(1)
@@ -93,20 +99,20 @@ def procura(dados, manga=False):
 
             for valor in dados['Animes'][f'{anime}'].values():
 
-              if type(valor) == str:
-                valor = valor.lower()
-                valor = valor.title()
-              
-              print(f"{padrao[x]} : {valor}")
-              x += 1
-
-          print("\n\n")
+                if type(valor) == str:
+                    valor = valor.lower()
+                    valor = valor.title()
+                
+                print(f"{padrao[x]} : {valor}")
+                x += 1
+            if valor == "Sim":
+                escolhas.insert(0, "Ver a versão de mangá.")
+        else:
+            print("Anime não encontrado :(")
+        print("\n\n")
       
       x = 1
-      escolhas = ["Voltar ao menu principal"]
-
-      if valor == "Sim":
-        escolhas.insert(0, "Ver a versão de mangá.")
+      
 
       print("O que deseja fazer agora?")
       for escolha in escolhas:
@@ -119,13 +125,14 @@ def procura(dados, manga=False):
             
              
 def inserir_anime(dados):
-  padrao = ['Titulo', 'Genero', 'Autor', 'Episodios', 'Manga', 'Titulo', 'Genero', 'Autor', 'Episodios', 'Anime']
+  padrao = ['Titulo', 'Genero', 'Autor', 'Episodios', 'Manga', 'Titulo', 'Genero', 'Autor', 'Capitulos', 'Anime']
   
   total_anime = list(dados['Animes'])
+  total_manga = list(dados['Mangas'])
 
   limpar()
   print("Para inserir um anime, siga o seguinte padrão:\nNome,Gênero,Autor,Episódios,Possui mangá? (sim ou não)\n\nEx: \n\tHunter x Hunter,Aventura,Yoshihiro Togashi,148,Sim")
-  novo_anime = input("\n\t").split(",")
+  novo_anime = input("\n\t").upper().split(",")
 
   #Checking the data whether is equal to five detailments of the anime 
   if len(novo_anime) == 5:
@@ -156,7 +163,7 @@ def inserir_anime(dados):
       limpar()
       print("Como existe a versão de mangá, por favor, insira as informações conforme o padrao.\nTítulo,gênero,autor,quantos capítulos.")
       print("Ex\n\tHunter x Hunter,aventura,Yoshiro Togashi,410.")
-      novo_manga = input("\n:\t").split(",")
+      novo_manga = input("\n:\t").upper().split(",")
 
       novo_manga[3] = int(novo_manga[3])
 
@@ -181,22 +188,33 @@ def inserir_anime(dados):
       #len(novo_manga) = 5
 
       novo_anime = novo_anime + novo_manga
+      manga = {}
 
       #len(novo_anime) = 10
     anime = {}
 
-    for slaVei in range(len(novo_anime) - 1):
-      print(slaVei)
-
-      if slaVei >= 5:
+    for slaVei in range(len(novo_anime)):
+      if slaVei <= 4:
         anime[f'{padrao[slaVei]}'] = novo_anime[slaVei]
-
-      anime[f'{padrao[slaVei]}'] = novo_anime[slaVei]
-
+        print(slaVei, anime, manga)
+      
+      elif slaVei > 4:
+        manga[f'{padrao[slaVei]}'] = novo_anime[slaVei]
+        print(slaVei, anime, manga)
       
 
-    print(anime)
-  
+    print(anime, manga)
+    input(".A.")
+    limpar()
+    dados['Animes'][len(total_anime) + 1] = anime
+    dados['Mangas'][len(total_manga) + 1] = manga
+    
+    print(dados)
+    input("_Z_")
+    with open(r'C:\Users\Aluno\Desktop\pastadoian\deverVeiga\animes.json', 'w') as animes:
+        json.dump(dados, animes)
+        print("V c  foi")
+
 
   else:
     print("vai la ent dnv")
@@ -207,11 +225,13 @@ def inserir_anime(dados):
 
 
 
-def escolha(primeira_vez=True):
+def escolha():
   dados = ler()
+  global primeira_vez
 
   if primeira_vez:
     escolha = input("Seja bem-vindo ao depósito de animes!\nO que deseja?\n\n\t1 - Buscar por um anime\n\t2 - Inserir um novo anime.").lower()
+    primeira_vez = False
   else:
      limpar()
      escolha = input("\nO que deseja?\n\n\t1 - Buscar por um anime\n\t2 - Inserir um novo anime.").lower()
@@ -232,4 +252,7 @@ def escolha(primeira_vez=True):
 
 #Início do código abaixo:
 conferir_pasta()
-escolha()
+
+while True:
+    escolha()
+    input("\n\n...")
