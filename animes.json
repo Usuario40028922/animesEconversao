@@ -1,34 +1,9 @@
-{
-    
-  "Animes" : {
-    
-      "1" : {
-          
-          "Titulo" : "HUNTER X HUNTER",
-          "Genero" : "AVENTURA",
-          "Autor" : "Yoshihiro Togashi",
-          "Episodios" : 148,
-          "Manga" : "SIM"
+{"Animes": 
 
-          
-          }
-      
-      },
-  
-  
-  
-  "Mangas" : {
-      
-      "1" : {
-          
-          "Titulo" : "HUNTER X HUNTER",
-          "Genero" : "AVENTURA",
-          "Autor" : "Yoshihiro Togashi",
-          "Capitulos" : 410,
-          "Anime" : "SIM"
-          
-          }
-      
-      }
-  
-  }
+    {"1": 
+        {"Titulo": "HUNTER X HUNTER", "Genero": "AVENTURA", "Autor": "Yoshihiro Togashi", "Episodios": 148, "Manga": "SIM"}, 
+    
+     "2": {"Titulo": "NARUTO", "Genero": "AVENTURA", "Autor": "Masashi Kishimoto", "Episodios": 220, "Manga": "SIM"}}
+     
+, "Mangas": {"1": {"Titulo": "HUNTER X HUNTER", "Genero": "AVENTURA", "Autor": "Yoshihiro Togashi", "Capitulos": 410, "Anime": "SIM"}, 
+            "2": {"Titulo": "NARUTO", "Genero": "AVENTURA", "Autor": "Masashi Kishimoto", "Capitulos": 238, "Anime": "SIM"}}}
